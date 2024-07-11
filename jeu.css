@@ -15,7 +15,7 @@
     animation: appear 1s;
     border-radius: 6px;
 }
-.box-clicked{
+.box-valid{
     background-color: #ccc;
     color: #aaa;
 }

@@ -50,8 +50,20 @@
                     nb++    
                 }
             //2
-
-            })
+            else if(i > nb){
+                alert("Erreur, recommencez !")
+                nb = 1
+                board.querySelectorAll(".box-valid").forEach(function(validBox){
+                    validBox.classList.remove("box-valid")
+                })
+            }
+            // 3
+            else{
+                alert("Case déjà cliquée !")
+            }
+                shuffleChildren(board)
+            });
+            
         }
         shuffleChildren(board)
         
