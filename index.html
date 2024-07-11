@@ -27,6 +27,15 @@
             board.appendChild(temp)
         }
     }
+
+        function showReaction(type, clickedBox) {
+            clickedBox.classList.add(type);
+            if (type !== "success") {
+                setTimeout(() => {
+                    clickedBox.classList.remove(type);
+                }, 800);
+            }
+        }
         const box = document.createElement('div') // createElement permet d'instancier un nouvel objet qui sera représenté par la balise spécifiée en argument de cette méthode (div)
         box.classList.add('box') // Ensuite on modifie sa propriété classlist pour lui ajouter la classe .box
 
@@ -45,13 +54,15 @@
                     newbox.classList.add("box-valid")
                     //1
                     if(nb == board.children.length){
-                        alert("VICTOIRE !")
+                        board.querySelectorAll(".box").forEach(function(box){
+                            showReaction("sucess", box)
+                        })
                     }
                     nb++    
                 }
             //2
             else if(i > nb){
-                alert("Erreur, recommencez !")
+                showReaction("error", newbox)
                 nb = 1
                 board.querySelectorAll(".box-valid").forEach(function(validBox){
                     validBox.classList.remove("box-valid")
@@ -59,7 +70,7 @@
             }
             // 3
             else{
-                alert("Case déjà cliquée !")
+                showReaction("notice", newbox)
             }
                 shuffleChildren(board)
             });
