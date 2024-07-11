@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="jeu.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="board"></div>
+
+    <script>
+
+        function shuffleChildren(parent){
+        let children = parent.children
+        // Mélange de Knuth qui permet de mélanger les boites à l'écran
+        let i = board.children.length, k , temp
+        while (--i > 0) { // on boucle tant que 1 oté de i est toujours positif
+            // k stocke un nombre aléatoire basé sur i
+            k = Math.floor(Math.random() * (i+1))
+            // temp pointe temporairement l'élement à la position k dans board
+            temp = board.children[k]
+            // remplace l'élément à la position k par l'élément à la position i
+            board.children[k] = board.children[i]
+            // place l'élément k pointé temporairement à la fin du contenu de board
+            board.appendChild(temp)
+        }
+    }
+        const box = document.createElement('div') // createElement permet d'instancier un nouvel objet qui sera représenté par la balise spécifiée en argument de cette méthode (div)
+        box.classList.add('box') // Ensuite on modifie sa propriété classlist pour lui ajouter la classe .box
+
+        const board = document.querySelector("#board") // On recupère board avec le querySelector
+        
+        for (let i = 1; i <= 10; i++){
+            const newbox = box.cloneNode() // box.cloneNode() crée une copie (clone) de l'élément box. Ce clone est stocké dans la variable newbox.
+            newbox.innerText = i // newbox.innerText = i définit le texte intérieur de newbox à la valeur actuelle de i. Cela signifie que chaque nouvelle box aura un numéro de 1 à 10.
+            board.appendChild(newbox) // board.appendChild(newbox) ajoute le nouvel élément newbox à l'élément board (prepend sert à ajouter du contenu au début de l'élément visé à l'inverse de append)  
+            
+            newbox.addEventListener("click", function(){
+                console.log("Boite n°" + i +", click !")
+                newbox.classList.add("box-valid")
+            })
+        }
+        shuffleChildren(board)
+        
+        
+        
+
+
+
+
+
+    
+    </script>
+
+
+
+    
+</body>
+</html>
