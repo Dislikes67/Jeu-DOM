@@ -32,14 +32,25 @@
 
         const board = document.querySelector("#board") // On recupère board avec le querySelector
         
+        let nb = 1
+
         for (let i = 1; i <= 10; i++){
             const newbox = box.cloneNode() // box.cloneNode() crée une copie (clone) de l'élément box. Ce clone est stocké dans la variable newbox.
             newbox.innerText = i // newbox.innerText = i définit le texte intérieur de newbox à la valeur actuelle de i. Cela signifie que chaque nouvelle box aura un numéro de 1 à 10.
             board.appendChild(newbox) // board.appendChild(newbox) ajoute le nouvel élément newbox à l'élément board (prepend sert à ajouter du contenu au début de l'élément visé à l'inverse de append)  
             
             newbox.addEventListener("click", function(){
-                console.log("Boite n°" + i +", click !")
-                newbox.classList.add("box-valid")
+                
+                if (i == nb){
+                    newbox.classList.add("box-valid")
+                    //1
+                    if(nb == board.children.length){
+                        alert("VICTOIRE !")
+                    }
+                    nb++    
+                }
+            //2
+
             })
         }
         shuffleChildren(board)
