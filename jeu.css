@@ -22,6 +22,10 @@
     color: #aaa;
     transform: scale(0.8);
 }
+#timer {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
 .box.error{ color: rgb(18, 16, 151); background-color: rgb(255, 160, 190); }
 .box.success{ color: rgb(18, 16, 151); background-color: rgb(172, 251, 172); }
 .box.notice{ color: rgb(18, 16, 151); background-color: rgb(184, 217, 255); cursor:not-allowed;}

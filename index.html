@@ -4,13 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="jeu.css">
-    <title>Document</title>
+    <title>Jeu DOM</title>
 </head>
 <body>
+
+    <div id ="timer">Temps restant : 59s</div>
 
     <div id="board"></div>
 
     <script>
+        let timer;
+        let timeLeft = 59;
+
+        function startTimer(){
+            timer = setInterval(function(){
+                if (timeLeft <= 0){
+                    clearInterval(timer);
+                    alert("Temps écoulé !");
+                    resetGame();
+                } else {
+                    document.getElementById("timer").innerText = `Temps restant: ${timeLeft}s`
+                }
+                timeLeft -= 1;
+            }, 1000);
+        }
+
 
         function shuffleChildren(parent){
         let children = parent.children
@@ -36,6 +54,16 @@
                 }, 800);
             }
         }
+        function resetGame() {
+            timeLeft = 59;
+            document.getElementById("timer").innerText = `Temps restant: ${timeLeft}s`;
+            nb = 1;
+            board.querySelectorAll(".box").forEach(function(box) {
+                box.classList.remove("box-valid", "success", "error", "notice");
+            });
+            shuffleChildren(board);
+        }
+
         const box = document.createElement('div') // createElement permet d'instancier un nouvel objet qui sera représenté par la balise spécifiée en argument de cette méthode (div)
         box.classList.add('box') // Ensuite on modifie sa propriété classlist pour lui ajouter la classe .box
 
