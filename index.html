@@ -5,12 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="jeu.css">
     <title>Jeu DOM</title>
-    
 </head>
 <body>
 
     <div id="timer">Temps restant: 59s</div>
     <div id="board"></div>
+    <div id="recompenses">
+        <br>
+        Or : 50 secondes restantes ou plus.<br>
+        Argent : Entre 40 et 50 secondes restantes.<br>
+        Bronze : Entre 30 et 40 secondes restantes.
+    </div>
 
     <script>
         let timer;
@@ -49,6 +54,7 @@
         }
 
         function resetGame() {
+            clearInterval(timer);
             timeLeft = 59;
             document.getElementById("timer").innerText = `Temps restant: ${timeLeft}s`;
             nb = 1;
@@ -59,19 +65,19 @@
             gameStarted = false;
         }
 
-        const box = document.createElement('div'); // createElement permet d'instancier un nouvel objet qui sera représenté par la balise spécifiée en argument de cette méthode (div)
-        box.classList.add('box'); // Ensuite on modifie sa propriété classlist pour lui ajouter la classe .box
+        const box = document.createElement('div');
+        box.classList.add('box');
 
-        const board = document.querySelector("#board"); // On recupère board avec le querySelector
-        
+        const board = document.querySelector("#board");
+
         let nb = 1;
         let gameStarted = false;
 
         for (let i = 1; i <= 10; i++) {
-            const newbox = box.cloneNode(); // box.cloneNode() crée une copie (clone) de l'élément box. Ce clone est stocké dans la variable newbox.
-            newbox.innerText = i; // newbox.innerText = i définit le texte intérieur de newbox à la valeur actuelle de i. Cela signifie que chaque nouvelle box aura un numéro de 1 à 10.
-            board.appendChild(newbox); // board.appendChild(newbox) ajoute le nouvel élément newbox à l'élément board (prepend sert à ajouter du contenu au début de l'élément visé à l'inverse de append)  
-            
+            const newbox = box.cloneNode();
+            newbox.innerText = i;
+            board.appendChild(newbox);
+
             newbox.addEventListener("click", function() {
                 if (!gameStarted) {
                     gameStarted = true;
@@ -89,10 +95,7 @@
                     nb++;
                 } else if (parseInt(newbox.innerText) > nb) {
                     showReaction("error", newbox);
-                    nb = 1;
-                    board.querySelectorAll(".box-valid").forEach(function(validBox) {
-                        validBox.classList.remove("box-valid");
-                    });
+                    resetGame(); // Reset the game on a mistake
                 } else {
                     showReaction("notice", newbox);
                 }
@@ -101,10 +104,5 @@
         }
         shuffleChildren(board);
     </script>
-    <div id="recompenses"><br>
-        Or : 50 secondes restantes ou plus.<br>
-        Argent : Entre 40 et 50 secondes restantes.<br>
-        Bronze : Entre 30 et 40 secondes restantes.
-    </div>
 </body>
 </html>
