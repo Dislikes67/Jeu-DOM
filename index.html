@@ -54,6 +54,19 @@
         }
 
         function resetGame() {
+            let message = "";
+            if (timeLeft >= 50) {
+                message = "Or : 50 secondes restantes ou plus.";
+            } else if (timeLeft >= 40) {
+                message = "Argent : Entre 40 et 50 secondes restantes.";
+            } else if (timeLeft >= 30) {
+                message = "Bronze : Entre 30 et 40 secondes restantes.";
+            } else {
+                message = "Aucune médaille.";
+            }
+
+            alert(`VICTOIRE ! ${message}`);
+
             clearInterval(timer);
             timeLeft = 59;
             document.getElementById("timer").innerText = `Temps restant: ${timeLeft}s`;
@@ -89,7 +102,6 @@
                     showReaction("success", newbox);
                     if (nb === board.children.length) {
                         clearInterval(timer);
-                        alert("VICTOIRE !");
                         resetGame();
                     }
                     nb++;
